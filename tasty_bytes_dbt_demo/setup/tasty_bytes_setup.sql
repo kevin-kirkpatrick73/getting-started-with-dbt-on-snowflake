@@ -1,9 +1,9 @@
 USE ROLE accountadmin;
 
 CREATE OR REPLACE WAREHOUSE tasty_bytes_dbt_wh
-    WAREHOUSE_SIZE = 'small'
+    WAREHOUSE_SIZE = 'xsmall'
     WAREHOUSE_TYPE = 'standard'
-    AUTO_SUSPEND = 60
+    AUTO_SUSPEND = 10
     AUTO_RESUME = TRUE
     INITIALLY_SUSPENDED = TRUE
     COMMENT = 'warehouse for tasty bytes dbt demo';
@@ -178,7 +178,7 @@ COMMENT = '{"origin":"sf_sit-is", "name":"tasty-bytes-dbt", "version":{"major":1
 /*--
  raw zone table load 
 --*/
-
+select count(*) from  @tasty_bytes_dbt_db.public.s3load/raw_pos/order_detail/;
 -- country table load
 COPY INTO tasty_bytes_dbt_db.raw.country
 FROM @tasty_bytes_dbt_db.public.s3load/raw_pos/country/;
